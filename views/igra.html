@@ -1,0 +1,34 @@
+% import model
+% rebase('Kalodont/views/base.html')
+
+<p>Že uporabljene besede: {{igra.uporabljene_besede}}</p>
+
+<p>Iščete besedo, ki se začne na: {{igra.zadnja()[-2:]}}</p>
+
+% if odziv == model.ZMAGA :
+
+<h1>Zmaga!</h1>
+
+Čestitke, premagali ste računalnik! Prvi ste vnesli besedo KALODONT.
+
+<form action="/nova_igra/" method="post">
+    <button type="submit">Nova igra</button>
+</form>
+
+% elif odziv == model.PORAZ :
+
+<h2>Izgubili ste!</h2>
+
+Računalnik je prvi izbral besedo KALODONT.
+
+<form action="/nova_igra/" method="post">
+    <button type="submit">Nova igra</button>
+</form>
+
+% else:
+<form action="/igra/" method="post">
+    <input type="text" name="beseda" autofocus>
+    <button type="submit">Vnesi!</button>
+</form>
+
+% end
