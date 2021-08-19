@@ -1,4 +1,5 @@
 import random
+import json
 
 
 NE_OBSTAJA = 'E'
@@ -6,11 +7,12 @@ NI_USTREZNA = 'A'
 ZE_UPORABLJENA = 'U'
 ZMAGA = 'W'
 PORAZ = 'L'
+ZACETEK = 'S'
 
 
 class Igra:
-    def __init__(self, geslo=None):
-        self.uporabljene_besede = []
+    def __init__(self, geslo=None, uporabljene_besede=[]):
+        self.uporabljene_besede = uporabljene_besede
         self.geslo = geslo
 
     def obstaja(self):
@@ -78,3 +80,40 @@ with open('Kalodont/besede.txt', 'r', encoding='utf8') as f:
 
 def nova_igra():
     return Igra()
+
+
+class Kalodont:
+    def __init__(self, datoteka_s_stanjem):
+        self.igre = {}
+        self.datoteka_s_stanjem = datoteka_s_stanjem
+    
+    def prost_id_igre(self):
+        if self.igre == {}:
+            return 0
+        else:
+            return max(self.igre.keys()) + 1
+    
+    def nova_igra(self):
+        self.nalozi_igre_iz_datoteke()
+        igra = Igra()
+        id_igre = self.prost_id_igre()
+        self.igre[id_igre] = (igra, ZACETEK)
+        self.zapisi_igre_v_datoteko()
+        return id_igre
+
+    def vnasanje(self, id_igre, beseda):
+        self.nalozi_igre_iz_datoteke()
+        (igra, _) = self.igre[id_igre]
+        odziv = igra.vnasanje(beseda)
+        self.igre[id_igre] = (igra, odziv)
+        self.zapisi_igre_v_datoteko()
+
+    def zapisi_igre_v_datoteko(self):
+        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'w') as f:
+            igre_predelano = {id_igre: ((igra.geslo, igra.uporabljene_besede), odziv) for (id_igre, (igra, odziv)) in self.igre.items()}
+            json.dump(igre_predelano, f, ensure_ascii=False)
+
+    def nalozi_igre_iz_datoteke(self):
+        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'r') as f:
+            igre_predelano = json.load(f)
+            self.igre = {int(id_igre): (Igra(geslo, uporabljene_besede), odziv) for (id_igre, ((geslo, uporabljene_besede), odziv)) in igre_predelano.items()}
