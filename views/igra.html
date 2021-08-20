@@ -1,34 +1,91 @@
 % import model
+% import bottle
 % rebase('Kalodont/views/base.html')
 
-<p>Že uporabljene besede: {{igra.uporabljene_besede}}</p>
 
-<p>Iščete besedo, ki se začne na: {{igra.zadnja()[-2:]}}</p>
+<div class="container has-text-centered">
+    <div class="columns is-mobile is-centered">
+        <div class="column is-two-thirds">
+            <div class="notification">
+                <p class="title is-4">Iščeš besedo, ki se začne na:</p>
+                <p class="title is-1"> {{igra.zadnja()[-2:].upper()}}</p>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <p class="title is-2" style="margin-top:50px">Računalnik</p>
+                    <div class="control">
+                        <input class="input is-large is-hovered" type="text" value="{{igra.zadnja()}}" readonly>
+                    </div>
 
-% if odziv == model.ZMAGA :
+                </div>
+                <div class="column">
+                    % if odziv == model.ZMAGA :
 
-<h1>Zmaga!</h1>
+                    % bottle.redirect("/zmaga/")
 
-Čestitke, premagali ste računalnik! Prvi ste vnesli besedo KALODONT.
+                    % elif odziv == model.PORAZ :
 
-<form action="/nova_igra/" method="post">
-    <button type="submit">Nova igra</button>
-</form>
+                    % bottle.redirect("/poraz/")
 
-% elif odziv == model.PORAZ :
+                    % elif odziv == model.NE_OBSTAJA :
 
-<h2>Izgubili ste!</h2>
+                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <form class="field has-addons" action="/igra/" method="post">
+                        <input class="input is-large is-warning" type="text" name="beseda" autofocus
+                            placeholder="Vnesi besedo">
+                        <button class="button is-large is-warning" type="submit">Vnesi!</button>
+                    </form>
+                    <p class="help is-danger">Beseda "{{igra.geslo}}" ne obstaja!
+                        Preveri, če si jo napisal pravilno in poskusi ponovno.</p>
 
-Računalnik je prvi izbral besedo KALODONT.
+                    % elif odziv == model.NI_USTREZNA :
 
-<form action="/nova_igra/" method="post">
-    <button type="submit">Nova igra</button>
-</form>
+                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <form class="field has-addons" action="/igra/" method="post">
+                        <input class="input is-large is-warning" type="text" name="beseda" autofocus
+                            placeholder="Vnesi besedo">
+                        <button class="button is-large is-warning" type="submit">Vnesi!</button>
+                    </form>
+                    <p class="help is-danger">Beseda "{{igra.geslo}}" se ne začne na zadnji dve črki prejšnje besede!
+                    </p>
 
-% else:
-<form action="/igra/" method="post">
-    <input type="text" name="beseda" autofocus>
-    <button type="submit">Vnesi!</button>
-</form>
+                    % elif odziv == model.ZE_UPORABLJENA :
 
-% end
+                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <form class="field has-addons" action="/igra/" method="post">
+                        <input class="input is-large is-warning" type="text" name="beseda" autofocus
+                            placeholder="Vnesi besedo">
+                        <button class="button is-large is-warning" type="submit">Vnesi!</button>
+                    </form>
+                    <p class="help is-danger">Beseda "{{igra.geslo}}" je bila že enkrat uporabljena!</p>
+
+                    % else:
+
+                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <form class="field has-addons" action="/igra/" method="post">
+                        <input class="input is-large is-warning" type="text" name="beseda" autofocus
+                            placeholder="Vnesi besedo">
+                        <button class="button is-large is-warning" type="submit">Vnesi!</button>
+                    </form>
+
+                    % end
+
+                    <form action='/' method='get'>
+                        <button class='button is-dark is-medium is-rounded is-hover' type='submit'
+                            style="margin:20px"><b>Predaja</b></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="notification">
+                <p class="title is-4">Že uporabljene besede:</p>
+                <ul>
+                    % for beseda in igra.uporabljene_besede:
+                    <li class="subtitle is-5">{{beseda}}</li>
+                    % end
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

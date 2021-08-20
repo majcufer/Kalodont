@@ -1,0 +1,20 @@
+% import model
+% rebase('Kalodont/views/base.html')
+
+<div class="level-item has-text-centered" style="color: rgb(199, 30, 30); font-size: 120px; font-family:Arial">
+    <b>KALODONT</b>
+</div>
+<div class="level-item has-text-centered">
+    <object class="subtitle is-4" style="margin-top: 40px;">Žal si izgubil! Beseda "<i>{{igra.geslo}}</i>" se konča na
+        "<i>ka</i>".</object>
+</div>
+<div class="level-item has-text-centered" style="margin-top:40px">
+        <form action='/nova_igra/' method='post'>
+            <button class='button is-warning is-medium is-rounded is-hover' type='submit'
+                style="margin:20px"><b>Nova igra</b></button>
+        </form>
+        <form action='/' method='get'>
+            <button class='button is-dark is-medium is-rounded is-hover' type='submit'
+                style="margin:20px"><b>Izhod</b></button>
+        </form>
+</div>

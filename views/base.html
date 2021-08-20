@@ -1,19 +1,35 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Kalodont</title>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css'>
     <script defer src='https://use.fontawesome.com/releases/v5.3.1/js/all.js'></script>
-  </head>
+</head>
 <html>
 
 <body>
-    <div class='container'>
-        <section>
-            {{!base}}
-        </section>
-    </div>
+    <object class="navbar is-dark" style="margin-bottom: 20px;">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="http://127.0.0.1:8080/">
+                    <strong>Kalodont</strong><small>&nbsp- igra za širjenje besednega zaklada</small>
+                </a>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item" href="https://github.com/majcufer/Kalodont">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </object>
+    <section class='container'>
+        {{!base}}
+    </section>
 </body>
 
 </html>
