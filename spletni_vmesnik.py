@@ -26,12 +26,31 @@ def pokazi_igro():
                            igra=igra,
                            odziv=odziv)
 
+
 @bottle.post("/igra/")
 def ugibaj():
     id_igre = bottle.request.get_cookie('idigre', secret=SKRIVNOST)
     beseda = bottle.request.forms.getunicode("beseda")
     kalodont.vnasanje(id_igre, beseda)
     bottle.redirect("/igra/")
+
+
+@bottle.get("/zmaga/")
+def zmaga():
+    id_igre = bottle.request.get_cookie('idigre', secret=SKRIVNOST)
+    (igra, odziv) = kalodont.igre[id_igre]
+    return bottle.template('Kalodont/views/zmaga.html',
+                           igra=igra,
+                           odziv=odziv)
+
+
+@bottle.get("/poraz/")
+def poraz():
+    id_igre = bottle.request.get_cookie('idigre', secret=SKRIVNOST)
+    (igra, odziv) = kalodont.igre[id_igre]
+    return bottle.template('Kalodont/views/poraz.html',
+                           igra=igra,
+                           odziv=odziv)
 
 
 bottle.run(reloader=True, debug=True)
