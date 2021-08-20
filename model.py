@@ -20,7 +20,7 @@ class Igra:
 
     def dodaj_na_seznam(self):
         return self.uporabljene_besede.append(self.geslo)
-    
+
     def zadnja(self):
         if self.uporabljene_besede == []:
             return ''
@@ -32,10 +32,10 @@ class Igra:
             return True
         else:
             return self.geslo[:2] == self.zadnja()[-2:]
-    
+
     def ze_uporabljena(self):
         return self.geslo in self.uporabljene_besede
-        
+
     def zmaga(self):
         return self.geslo == 'kalodont'
 
@@ -74,7 +74,7 @@ class Igra:
 with open('Kalodont/besede.txt', 'r', encoding='utf8') as f:
     bazen_besed = []
     for beseda in f.readlines():
-        if len(beseda.strip().lower()) >= 3:
+        if len(beseda.strip().lower()) >= 3 and 'č' not in beseda.strip().lower() and 'ski' not in beseda[-3:] and 'en' not in beseda[-2:]:
             bazen_besed.append(beseda.strip().lower())
 
 
@@ -86,13 +86,13 @@ class Kalodont:
     def __init__(self, datoteka_s_stanjem):
         self.igre = {}
         self.datoteka_s_stanjem = datoteka_s_stanjem
-    
+
     def prost_id_igre(self):
         if self.igre == {}:
             return 0
         else:
             return max(self.igre.keys()) + 1
-    
+
     def nova_igra(self):
         self.nalozi_igre_iz_datoteke()
         igra = Igra()
@@ -110,10 +110,12 @@ class Kalodont:
 
     def zapisi_igre_v_datoteko(self):
         with open(f'Kalodont/{self.datoteka_s_stanjem}', 'w') as f:
-            igre_predelano = {id_igre: ((igra.geslo, igra.uporabljene_besede), odziv) for (id_igre, (igra, odziv)) in self.igre.items()}
+            igre_predelano = {id_igre: ((igra.geslo, igra.uporabljene_besede), odziv) for (
+                id_igre, (igra, odziv)) in self.igre.items()}
             json.dump(igre_predelano, f, ensure_ascii=False)
 
     def nalozi_igre_iz_datoteke(self):
         with open(f'Kalodont/{self.datoteka_s_stanjem}', 'r') as f:
             igre_predelano = json.load(f)
-            self.igre = {int(id_igre): (Igra(geslo, uporabljene_besede), odziv) for (id_igre, ((geslo, uporabljene_besede), odziv)) in igre_predelano.items()}
+            self.igre = {int(id_igre): (Igra(geslo, uporabljene_besede), odziv) for (
+                id_igre, ((geslo, uporabljene_besede), odziv)) in igre_predelano.items()}
