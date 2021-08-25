@@ -45,10 +45,8 @@ class Igra:
     def izbor_besede(self):
         bazen_ustreznih = []
         for beseda in bazen_besed:
-            if beseda[:2] == self.zadnja()[-2:]:
+            if beseda[:2] == self.zadnja()[-2:] and beseda not in self.uporabljene_besede:
                 bazen_ustreznih.append(beseda)
-            else:
-                pass
         return random.choice(bazen_ustreznih)
 
     def vnasanje(self, beseda):
@@ -74,7 +72,7 @@ class Igra:
 with open('Kalodont/besede.txt', 'r', encoding='utf8') as f:
     bazen_besed = []
     for beseda in f.readlines():
-        if len(beseda.strip().lower()) >= 3 and 'č' not in beseda.strip().lower() and 'ski' not in beseda[-3:] and 'en' not in beseda[-2:]:
+        if len(beseda.strip().lower()) >= 3:
             bazen_besed.append(beseda.strip().lower())
 
 
