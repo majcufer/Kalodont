@@ -107,13 +107,13 @@ class Kalodont:
         self.zapisi_igre_v_datoteko()
 
     def zapisi_igre_v_datoteko(self):
-        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'w') as f:
+        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'w', encoding='utf-8') as f:
             igre_predelano = {id_igre: ((igra.geslo, igra.uporabljene_besede), odziv) for (
                 id_igre, (igra, odziv)) in self.igre.items()}
             json.dump(igre_predelano, f, ensure_ascii=False)
 
     def nalozi_igre_iz_datoteke(self):
-        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'r') as f:
+        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'r', encoding='utf-8') as f:
             igre_predelano = json.load(f)
             self.igre = {int(id_igre): (Igra(geslo, uporabljene_besede), odziv) for (
                 id_igre, ((geslo, uporabljene_besede), odziv)) in igre_predelano.items()}
