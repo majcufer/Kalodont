@@ -1,11 +1,11 @@
 # Kalodont
 
-Verjetno ni osebe, ki bi dolgo pot na morje preživela brez preganjanja prostega časa
+Verjetno ni osebe, ki bi dolgo pot na morje preživela brez preganjanja časa
 z raznoraznimi besednimi igrami, pa naj bodo resnične ali pa ne.
 
 Kalodont je prav to. Besedna igra, kjer igralec išče novo besedo, ki se začne na končnici prejšnje.
 
-Igralec proti igralcu je za preganjanje prostega časa. Igralec proti računalniku pa je za kravžljanje možganov.
+Igralec proti igralcu je za preganjanje časa. Igralec proti računalniku pa je za kravžljanje možganov.
 Misliš, da ga lahko premagaš? Prenesi in probaj!
 
 ## Navodila za uporabo
