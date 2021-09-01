@@ -5,21 +5,8 @@
     <img src="https://marketingmreza.rs/wp-content/uploads/2012/11/kalodont-veca-532x227.jpg">
   </figure>
 </div>
-<div class="level-item has-text-centered">
-  <object class="box" width="800" style="margin: 20px;">
-    <div class="content is-medium">
-      <p>
-        Kalodont je južnoslovanska besedna igra, kjer igralci
-        zaporedoma izbirajo besede, katere se začnejo na zadnji
-        črki prejšnje besede. Ime je dobila po
-        jugoslovanskem proizvajalcu zobnih past Kalodont, saj v
-        južnoslovanskih jezikih beseda, ki bi se začela na "<i>nt</i>", ne obstaja.
-      </p>
-    </div>
-  </object>
-</div>
 <div class="level-item">
-  <object class="notification" width="800" style="margin: 20px;">
+  <object class="box" width="800" style="margin: 20px;">
     <div class="content">
       <h1>Pravila</h1>
       <p>Pravila igre so preprosta. Beseda, ki jo vneseš v polje se
@@ -31,12 +18,40 @@
         Zmaga tisti, ki prvi reče "<i>kalodont</i>", tako da pazi, da ne izbereš besede, ki se konča na "<i>ka</i>".
         Če nove besede ne najdeš, imaš na voljo možnost predaje s klikom na gumb <i>Predaja</i>.
       </p>
-      <p>Igro pričneš s klikom na gumb <i>nova igra</i>, in <b>prvi</b> vneseš poljubno besedo.</p>
     </div>
   </object>
 </div>
+<div class="level-item">
+  <object class="notification" width="800" style="margin: 20px;">
+    <div class="content is-medium">
+      <p>Če želiš nadaljevati z <b>zadnjo igro</b>, klikni na gumb <i>Nadaljuj igro</i> (prikazan
+        bo le v primeru, če si že odigral kakšno igro). Če pa želiš
+        začeti z <b>novo igro</b>, klikni na gumb <i>Nova igra</i>.</p>
+    </div>
+  </object>
+</div>
+% if len(slovar) == 0:
 <div class="level-item has-text-centered">
   <form action='/nova_igra/' method='post'>
-    <button class='button is-warning is-medium is-fullwidth is-rounded is-hover' type='submit'><b>Nova igra</b></button>
+    <button class='button is-warning is-medium is-fullwidth is-rounded' type='submit'><b>Nova
+        igra</b></button>
   </form>
 </div>
+% else:
+<div class="level-item">
+  <div class="columns">
+    <div class="column">
+      <form action='/nadaljuj_igro/' method='post'>
+        <button class='button is-dark is-medium is-fullwidth is-rounded' type='submit'><b>Nadaljuj
+            igro</b></button>
+      </form>
+    </div>
+    <div class="column">
+      <form action='/nova_igra/' method='post'>
+        <button class='button is-warning is-medium is-fullwidth is-rounded' type='submit'><b>Nova
+            igra</b></button>
+      </form>
+    </div>
+  </div>
+</div>
+% end

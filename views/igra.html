@@ -27,9 +27,13 @@
 
                     % bottle.redirect("/poraz/")
 
+                    % elif odziv == model.ZMAGAB :
+
+                    % bottle.redirect("/zmagab/")
+
                     % elif odziv == model.NE_OBSTAJA :
 
-                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <p class="title is-2" style="margin-top:50px">{{uporabnisko_ime.title()}}</p>
                     <form class="field has-addons" action="/igra/" method="post">
                         <input class="input is-large is-warning" type="text" name="beseda" autofocus
                             placeholder="Vnesi besedo">
@@ -40,7 +44,7 @@
 
                     % elif odziv == model.NI_USTREZNA :
 
-                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <p class="title is-2" style="margin-top:50px">{{uporabnisko_ime.title()}}</p>
                     <form class="field has-addons" action="/igra/" method="post">
                         <input class="input is-large is-warning" type="text" name="beseda" autofocus
                             placeholder="Vnesi besedo">
@@ -51,7 +55,7 @@
 
                     % elif odziv == model.ZE_UPORABLJENA :
 
-                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <p class="title is-2" style="margin-top:50px">{{uporabnisko_ime.title()}}</p>
                     <form class="field has-addons" action="/igra/" method="post">
                         <input class="input is-large is-warning" type="text" name="beseda" autofocus
                             placeholder="Vnesi besedo">
@@ -61,7 +65,7 @@
 
                     % else:
 
-                    <p class="title is-2" style="margin-top:50px">Uporabnik</p>
+                    <p class="title is-2" style="margin-top:50px">{{uporabnisko_ime.title()}}</p>
                     <form class="field has-addons" action="/igra/" method="post">
                         <input class="input is-large is-warning" type="text" name="beseda" autofocus
                             placeholder="Vnesi besedo">
@@ -70,7 +74,7 @@
 
                     % end
 
-                    <form action='/' method='get'>
+                    <form action='/osnovna/' method='get'>
                         <button class='button is-dark is-medium is-rounded is-hover' type='submit'
                             style="margin:20px"><b>Predaja</b></button>
                     </form>

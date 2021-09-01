@@ -6,6 +6,7 @@ NE_OBSTAJA = 'E'
 NI_USTREZNA = 'A'
 ZE_UPORABLJENA = 'U'
 ZMAGA = 'W'
+ZMAGAB = 'B'
 PORAZ = 'L'
 ZACETEK = 'S'
 
@@ -47,7 +48,10 @@ class Igra:
         for beseda in bazen_besed:
             if beseda[:2] == self.zadnja()[-2:] and beseda not in self.uporabljene_besede:
                 bazen_ustreznih.append(beseda)
-        return random.choice(bazen_ustreznih)
+        if bazen_ustreznih == []:
+            return None
+        else:
+            return random.choice(bazen_ustreznih)
 
     def vnasanje(self, beseda):
         self.geslo = beseda.lower()
@@ -64,15 +68,18 @@ class Igra:
         else:
             self.dodaj_na_seznam()
             rac_beseda = self.izbor_besede()
-            self.geslo = rac_beseda
-            self.dodaj_na_seznam()
-            return rac_beseda
+            if self.izbor_besede() == None:
+                return ZMAGAB
+            else:
+                self.geslo = rac_beseda
+                self.dodaj_na_seznam()
+                return rac_beseda
 
 
 with open('Kalodont/besede.txt', 'r', encoding='utf8') as f:
     bazen_besed = []
     for beseda in f.readlines():
-        if len(beseda.strip().lower()) >= 3:
+        if len(beseda.strip().lower()) >= 3 and beseda.strip().lower()[-3:] != 'ski' and '(' not in beseda.strip().lower():
             bazen_besed.append(beseda.strip().lower())
 
 
