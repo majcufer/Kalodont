@@ -2,13 +2,13 @@ import random
 import json
 
 
-NE_OBSTAJA = 'E'
-NI_USTREZNA = 'A'
-ZE_UPORABLJENA = 'U'
-ZMAGA = 'W'
-ZMAGAB = 'B'
-PORAZ = 'L'
-ZACETEK = 'S'
+NE_OBSTAJA = "E"
+NI_USTREZNA = "A"
+ZE_UPORABLJENA = "U"
+ZMAGA = "W"
+ZMAGAB = "B"
+PORAZ = "L"
+ZACETEK = "S"
 
 
 class Igra:
@@ -24,7 +24,7 @@ class Igra:
 
     def zadnja(self):
         if self.uporabljene_besede == []:
-            return ''
+            return ""
         else:
             return self.uporabljene_besede[-1]
 
@@ -38,10 +38,10 @@ class Igra:
         return self.geslo in self.uporabljene_besede
 
     def zmaga(self):
-        return self.geslo == 'kalodont'
+        return self.geslo == "kalodont"
 
     def poraz(self):
-        return self.geslo[-2:] == 'ka'
+        return self.geslo[-2:] == "ka"
 
     def izbor_besede(self):
         bazen_ustreznih = []
@@ -76,10 +76,10 @@ class Igra:
                 return rac_beseda
 
 
-with open('Kalodont/besede.txt', 'r', encoding='utf8') as f:
+with open("besede.txt", "r", encoding="utf8") as f:
     bazen_besed = []
     for beseda in f.readlines():
-        if len(beseda.strip().lower()) >= 3 and beseda.strip().lower()[-3:] != 'ski' and '(' not in beseda.strip().lower():
+        if len(beseda.strip().lower()) >= 3 and beseda.strip().lower()[-3:] != "ski" and "(" not in beseda.strip().lower():
             bazen_besed.append(beseda.strip().lower())
 
 
@@ -114,13 +114,13 @@ class Kalodont:
         self.zapisi_igre_v_datoteko()
 
     def zapisi_igre_v_datoteko(self):
-        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'w', encoding='utf-8') as f:
+        with open(self.datoteka_s_stanjem, "w", encoding="utf-8") as f:
             igre_predelano = {id_igre: ((igra.geslo, igra.uporabljene_besede), odziv) for (
                 id_igre, (igra, odziv)) in self.igre.items()}
             json.dump(igre_predelano, f, ensure_ascii=False)
 
     def nalozi_igre_iz_datoteke(self):
-        with open(f'Kalodont/{self.datoteka_s_stanjem}', 'r', encoding='utf-8') as f:
+        with open(self.datoteka_s_stanjem, "r", encoding="utf-8") as f:
             igre_predelano = json.load(f)
             self.igre = {int(id_igre): (Igra(geslo, uporabljene_besede), odziv) for (
                 id_igre, ((geslo, uporabljene_besede), odziv)) in igre_predelano.items()}

@@ -7,21 +7,21 @@ SKRIVNOST = "upamdabotolenakoncudelal"
 
 @bottle.get("/")
 def prva_stran():
-    return bottle.template("Kalodont/views/prva_stran.html",
+    return bottle.template("views/prva_stran.html",
                            uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"))
 
 
 @bottle.get("/registracija/")
 def registracija_get():
-    return bottle.template("Kalodont/views/registracija.html", napake={}, polja={}, uporabnisko_ime=None)
+    return bottle.template("views/registracija.html", napake={}, polja={}, uporabnisko_ime=None)
 
 
 @bottle.post("/registracija/")
 def registracija_post():
     uporabnisko_ime = bottle.request.forms.getunicode("uporabnisko_ime")
-    if os.path.exists(f'Kalodont/{uporabnisko_ime}'):
+    if os.path.exists(uporabnisko_ime):
         napake = {"uporabnisko_ime": "Uporabniško ime že obstaja."}
-        return bottle.template("Kalodont/views/registracija.html", napake=napake, polja={"uporabnisko_ime": uporabnisko_ime}, uporabnisko_ime=None)
+        return bottle.template("views/registracija.html", napake=napake, polja={"uporabnisko_ime": uporabnisko_ime}, uporabnisko_ime=None)
     else:
         bottle.response.set_cookie(
             "uporabnisko_ime", uporabnisko_ime, path="/")
@@ -31,15 +31,15 @@ def registracija_post():
 
 @bottle.get("/prijava/")
 def prijava_get():
-    return bottle.template("Kalodont/views/prijava.html", napake={}, polja={}, uporabnisko_ime=None)
+    return bottle.template("views/prijava.html", napake={}, polja={}, uporabnisko_ime=None)
 
 
 @bottle.post("/prijava/")
 def prijava_post():
     uporabnisko_ime = bottle.request.forms.getunicode("uporabnisko_ime")
-    if not os.path.exists(f'Kalodont/{uporabnisko_ime}'):
+    if not os.path.exists(uporabnisko_ime):
         napake = {"uporabnisko_ime": "Uporabniško ime ne obstaja."}
-        return bottle.template("Kalodont/views/prijava.html", napake=napake, polja={"uporabnisko_ime": uporabnisko_ime}, uporabnisko_ime=None)
+        return bottle.template("views/prijava.html", napake=napake, polja={"uporabnisko_ime": uporabnisko_ime}, uporabnisko_ime=None)
     else:
         bottle.response.set_cookie(
             "uporabnisko_ime", uporabnisko_ime, path="/")
@@ -58,7 +58,7 @@ def osnovna_stran():
     uporabnisko_ime = bottle.request.get_cookie("uporabnisko_ime")
     kalodont = Kalodont(uporabnisko_ime)
     kalodont.nalozi_igre_iz_datoteke()
-    return bottle.template("Kalodont/views/osnovna_stran.html",
+    return bottle.template("views/osnovna_stran.html",
                            uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"),
                            slovar=kalodont.igre)
 
@@ -79,7 +79,7 @@ def nadaljuj_igro():
     kalodont.nalozi_igre_iz_datoteke()
     id_igre = list(kalodont.igre)[-1]
     (igra, odziv) = kalodont.igre[id_igre]
-    return bottle.template("Kalodont/views/igra.html",
+    return bottle.template("views/igra.html",
                            id_igre=id_igre,
                            igra=igra,
                            odziv=odziv,
@@ -93,7 +93,7 @@ def pokazi_igro():
     id_igre = bottle.request.get_cookie("idigre", secret=SKRIVNOST)
     kalodont.nalozi_igre_iz_datoteke()
     (igra, odziv) = kalodont.igre[id_igre]
-    return bottle.template("Kalodont/views/igra.html",
+    return bottle.template("views/igra.html",
                            id_igre=id_igre,
                            igra=igra,
                            odziv=odziv,
@@ -117,7 +117,7 @@ def zmaga():
     id_igre = bottle.request.get_cookie("idigre", secret=SKRIVNOST)
     kalodont.nalozi_igre_iz_datoteke()
     (igra, odziv) = kalodont.igre[id_igre]
-    return bottle.template("Kalodont/views/zmaga.html",
+    return bottle.template("views/zmaga.html",
                            igra=igra,
                            odziv=odziv,
                            uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"))
@@ -130,7 +130,7 @@ def zmagab():
     id_igre = bottle.request.get_cookie("idigre", secret=SKRIVNOST)
     kalodont.nalozi_igre_iz_datoteke()
     (igra, odziv) = kalodont.igre[id_igre]
-    return bottle.template("Kalodont/views/zmagab.html",
+    return bottle.template("views/zmagab.html",
                            igra=igra,
                            odziv=odziv,
                            uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"))
@@ -143,15 +143,15 @@ def poraz():
     id_igre = bottle.request.get_cookie("idigre", secret=SKRIVNOST)
     kalodont.nalozi_igre_iz_datoteke()
     (igra, odziv) = kalodont.igre[id_igre]
-    return bottle.template("Kalodont/views/poraz.html",
+    return bottle.template("views/poraz.html",
                            igra=igra,
                            odziv=odziv,
                            uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"))
 
 
-@bottle.get('/img/<picture>')
+@bottle.get("/img/<picture>")
 def serve_pictures(picture):
-    return bottle.static_file(picture, root='Kalodont/img')
+    return bottle.static_file(picture, root="img")
 
 
 bottle.run(reloader=True, debug=True)

@@ -1,4 +1,4 @@
-% rebase('Kalodont/views/base.html')
+% rebase("views/base.html")
 
 <div class="level-item has-text-centered">
   <figure>
@@ -32,8 +32,8 @@
 </div>
 % if len(slovar) == 0:
 <div class="level-item has-text-centered">
-  <form action='/nova_igra/' method='post'>
-    <button class='button is-warning is-medium is-fullwidth is-rounded' type='submit'><b>Nova
+  <form action="/nova_igra/" method="post">
+    <button class="button is-warning is-medium is-fullwidth is-rounded" type="submit"><b>Nova
         igra</b></button>
   </form>
 </div>
@@ -41,14 +41,14 @@
 <div class="level-item">
   <div class="columns">
     <div class="column">
-      <form action='/nadaljuj_igro/' method='post'>
-        <button class='button is-dark is-medium is-fullwidth is-rounded' type='submit'><b>Nadaljuj
+      <form action="/nadaljuj_igro/" method="post">
+        <button class="button is-dark is-medium is-fullwidth is-rounded" type="submit"><b>Nadaljuj
             igro</b></button>
       </form>
     </div>
     <div class="column">
-      <form action='/nova_igra/' method='post'>
-        <button class='button is-warning is-medium is-fullwidth is-rounded' type='submit'><b>Nova
+      <form action="/nova_igra/" method="post">
+        <button class="button is-warning is-medium is-fullwidth is-rounded" type="submit"><b>Nova
             igra</b></button>
       </form>
     </div>
