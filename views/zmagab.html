@@ -1,12 +1,12 @@
 % import model
 % rebase('Kalodont/views/base.html')
 
-<div class="level-item has-text-centered" style="color: rgb(199, 30, 30); font-size: 120px; font-family:Arial">
-    <b>KALODONT</b>
+
+<div class="level-item has-text-centered" style="color: rgb(64, 191, 47); font-size: 120px; font-family:Arial">
+    <b>ČESTITKE!</b>
 </div>
 <div class="level-item has-text-centered">
-    <object class="subtitle is-4" style="margin-top: 40px;">Žal si izgubil! Beseda "<i>{{igra.geslo}}</i>" se konča na
-        "<i>ka</i>".</object>
+    <object class="subtitle is-4" style="margin-top: 40px;">Sreča je na tvoji strani! Računalnik ne najde besede na "{{igra.zadnja()[-2:].upper()}}".</object>
 </div>
 <div class="level-item has-text-centered" style="margin-top:40px">
         <form action='/nova_igra/' method='post'>
